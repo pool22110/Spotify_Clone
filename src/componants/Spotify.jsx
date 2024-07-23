@@ -1,25 +1,47 @@
-import React from 'react'
-import styled from 'styled-components'
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-import Body from './Body';
-import Footer from './Footer';
+import React, { useEffect } from "react";
+import { useStateProvider } from "../utlis/stateProvider";
+import styled from "styled-components";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import Body from "./Body";
+import Footer from "./Footer";
+import axios from "axios";
+import { reducerCases } from "../utlis/Constants";
 
 export default function Spotify() {
+  const [{ token }, dispatch] = useStateProvider();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { data } = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      const userInfo = {
+        userId: data.id,
+        userName: data.display_name,
+      };
+      dispatch({ type: reducerCases.SET_USER, userInfo });
+    };getUserInfo()
+  }, [dispatch, token]);
+
   return (
     <Container>
-        <div className="spotify__body">
-            <Sidebar/>
-            <div className="body">
-                <Navbar/>
-                <div className="body__content">
-                    <Body/>
-                </div>
-            </div>
+      <div className="spotify__body">
+        <Sidebar />
+        <div className="body">
+          <Navbar />
+          <div className="body__content">
+            <Body />
+          </div>
         </div>
-        <div className="spotify__footer"><Footer/></div>
+      </div>
+      <div className="spotify__footer">
+        <Footer />
+      </div>
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
@@ -40,4 +62,4 @@ const Container = styled.div`
     width:100%;
     overflow: auto;}
 
-`
+`;
