@@ -52,6 +52,6 @@ width: 100%;
     cursor:pointer;
     transition: 0.4s ease-in-out;
     &:hover{
-    color: white} ;}}
+    color: white}; }}
 }
 `

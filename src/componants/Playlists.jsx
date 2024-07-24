@@ -49,6 +49,11 @@ const Container = styled.div`
     gap: 1rem;
     height:55vh;
     max-height:100%
+    overflow:auto
+    // &::-webkit-scrollbar {
+    // width:0.7rem;
+    // &-thumb{
+    // background-color:rgba(255,255,255,0.5)}
     li{
     display: flex;
     gap: 1rem;
