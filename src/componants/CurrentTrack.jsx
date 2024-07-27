@@ -17,13 +17,14 @@ export default function CurrentTrack() {
           },
         }
       );
+      // console.log(token)
       if (response.data !== "") {
         const { item } = response.data;
         const currentlyPlaying = {
           id: item.id,
           name: item.name,
           artists: item.artists.map((artist) => artist.name),
-          image: item.album.images[2].uri,
+          image: item.album.images[2].url,
         };
         dispatch({ type: reducerCases.SET_PLAYING, currentlyPlaying });
       }
@@ -49,15 +50,20 @@ export default function CurrentTrack() {
 }
 
 const Container = styled.div`
-.track {
-display:flex;
-align-items:center;
-gap:1rem;
-&__info{
-display:flex;
-flex-direction: column;
-gap:0.3rem;
-h4{
-color:white;}
-h6{
-color:#b3b3b3}}}`;
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      h4 {
+        color: white;
+      }
+      h6 {
+        color: #b3b3b3;
+      }
+    }
+  }
+`;
